@@ -1,0 +1,12 @@
+com/fourage/repository/StatutRepository.class
+com/fourage/service/DemandeService.class
+com/fourage/repository/JpaDAO.class
+com/fourage/service/StatutService.class
+com/fourage/service/StatutDemandeService.class
+com/fourage/model/Demande.class
+com/fourage/repository/StatutDemandeRepository.class
+com/fourage/config/Config.class
+com/fourage/repository/DemandeRepository.class
+com/fourage/config/DatabaseConfig.class
+com/fourage/model/StatutDemande.class
+com/fourage/model/Statut.class
