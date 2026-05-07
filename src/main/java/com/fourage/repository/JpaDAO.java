@@ -124,4 +124,23 @@ public class JpaDAO {
             em.close();
         }
     }
+
+    public <T> List<T> getByQuery(String jpql, Class<T> clazz, Object... params) {
+
+        EntityManager em = emf.createEntityManager();
+
+        try {
+
+            var query = em.createQuery(jpql, clazz);
+
+            for (int i = 0; i < params.length; i++) {
+                query.setParameter(i + 1, params[i]);
+            }
+
+            return query.getResultList();
+
+        } finally {
+            em.close();
+        }
+    }
 }

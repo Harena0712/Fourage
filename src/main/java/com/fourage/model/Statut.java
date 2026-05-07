@@ -1,5 +1,6 @@
 package com.fourage.model;
 
+import java.util.List;
 import jakarta.persistence.*;
 
 @Entity
@@ -14,6 +15,9 @@ public class Statut {
     @Column(name = "libelle")
     private String libelle;
 
+    @OneToMany(mappedBy = "idStatut")
+    private List<StatutDemande> statutDemandes;
+
     public int getId() {
         return id;
     }
@@ -26,5 +30,12 @@ public class Statut {
     }
     public void setLibelle(String libelle) {
         this.libelle = libelle;
-    } 
+    }
+
+    public List<StatutDemande> getStatutDemandes() {
+        return statutDemandes;
+    }
+    public void setStatutDemandes(List<StatutDemande> statutDemandes) {
+        this.statutDemandes = statutDemandes;
+    }
 }

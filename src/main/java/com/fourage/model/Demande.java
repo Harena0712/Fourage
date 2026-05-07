@@ -1,6 +1,8 @@
 package com.fourage.model;
 
 import java.time.LocalDateTime;
+import java.util.List;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -25,6 +27,9 @@ public class Demande {
 
     @Column(name = "daty")
     private LocalDateTime daty;
+
+    @OneToMany(mappedBy = "idDemande")
+    private List<StatutDemande> statutDemandes;
 
     public Demande(int id, int idClient, String lieu, int idCommune, String reference, LocalDateTime daty) {
         this.id = id;

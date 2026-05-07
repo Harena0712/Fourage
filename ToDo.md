@@ -3,7 +3,7 @@
 # Commande de lancement du projet
 ```
 mvn clean package
-cp target/*.war ~/apache-tomcat/webapps/
+cp target/*.war /home/harena/Documents/ITU/S4/tomcat10/webapps
 ./startup.sh
 http://localhost:8080/nomDuProjet
 ```

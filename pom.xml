@@ -7,7 +7,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.fourage</groupId>
-    <artifactId>spring-mvc-mysql</artifactId>
+    <artifactId>Fourage</artifactId>
     <version>1.0</version>
     <packaging>war</packaging>
 
@@ -30,6 +30,13 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-jdbc</artifactId>
+            <version>6.2.0</version>
+        </dependency>
+
+        <!-- Spring ORM (Object/Relational Mapping) -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-orm</artifactId>
             <version>6.2.0</version>
         </dependency>
 
@@ -78,7 +85,7 @@
     </dependencies>
 
     <build>
-        <finalName>spring-mvc-mysql</finalName>
+        <finalName>Fourage</finalName>
 
         <plugins>
             <plugin>

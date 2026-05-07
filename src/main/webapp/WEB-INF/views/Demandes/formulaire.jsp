@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <!-- <%@ page import="java.util.List" %> -->
-<!-- <%@ page import="com.fourage.model.Cheque" %> -->
+<!-- <%@ page import="com.fourage.model.*" %> -->
 
 <!DOCTYPE html>
 <html>
@@ -10,7 +10,7 @@
 <body>
     <h1>Faite votre demande de forage</h1>
 
-    <form action="/demandes/ajouter" method="post">
+    <form action="${pageContext.request.contextPath}/demande/ajouter" method="post">
         <fieldset>
             <legend>Information personnelle</legend>
 
@@ -23,16 +23,19 @@
         </fieldset>
 
         <fieldset>
-            <legend>Information sur le lieu de fourage</legend>
+            <legend>Information sur le lieu et date de fourage</legend>
 
-            <label for="commune">Commune:</label>
-            <select name="commune" id="commune">
+            <label for="idCommune">Commune:</label>
+            <select name="idCommune" id="idCommune">
                 <option value="">- Sélectionnez une commune -</option>
             </select>
 
             <label for="lieu">Lieu:</label>
             <input type="text" id="lieu" name="lieu" placeholder="Entrez le lieu de fourage">
-            
+
+            <label for="date">Date:</label>
+            <input type="date" id="date" name="date">
+
         </fieldset>
 
         <input type="submit" value="Envoyer la demande">

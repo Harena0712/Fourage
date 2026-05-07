@@ -28,4 +28,8 @@ public class ClientService {
     public void delete(int id) {
         repo.delete(id);
     }
+
+    public List<Client> getByNomPrenom(String nom, String prenom) {
+        return repo.getByNomPrenom(nom, prenom);
+    }
 }
