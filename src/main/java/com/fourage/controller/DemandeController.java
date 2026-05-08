@@ -18,16 +18,22 @@ public class DemandeController {
     @Autowired
     private DemandeService demandeService;
     @Autowired
+    private StatutService statutService;
+    @Autowired
     private ClientService clientService;
-    // @Autowired
-    // private StatutDemandeService statutDemandeService;
+    @Autowired
+    private CommuneService communeService;
+    @Autowired
+    private StatutDemandeService statutDemandeService;
 
     @GetMapping("/demande/formulaire")
     public ModelAndView formulaire() {
+        List<Commune> communes = communeService.getAll();
         ModelAndView mv = new ModelAndView("/Demandes/formulaire");
+        mv.addObject("communes", communes);
         return mv;
     }
-    
+
     @PostMapping("/demande/ajouter")
     public ModelAndView ajouter(@RequestParam("nom") String nom, 
                                 @RequestParam("prenom") String prenom, 
@@ -39,9 +45,10 @@ public class DemandeController {
         if(clients.isEmpty()) {
             ModelAndView mv = new ModelAndView("/Demandes/formulaire");
             mv.addObject("erreur", "Client non trouvé, veuillez vois inscrire d'abord");
+            mv.addObject("communes", communeService.getAll());
             return mv;
         }
-        
+
         Client client = clients.get(0);
         String ref = ReferenceGenerator.genererReference();
 
@@ -53,9 +60,19 @@ public class DemandeController {
         demande.setReference(ref);
 
         demandeService.save(demande);
+
+        Statut demandeRecu = statutService.getById(1);
+
+        StatutDemande statutDemande = new StatutDemande();
+        statutDemande.setIdDemande(demande.getId());
+        statutDemande.setIdStatut(demandeRecu.getId());
+        statutDemande.setDaty(LocalDateTime.parse(date));
         
+        statutDemandeService.save(statutDemande);
+
         ModelAndView mv = new ModelAndView("/Demandes/formulaire");
         mv.addObject("succes", "Demande ajoutée avec succès");
+        mv.addObject("communes", communeService.getAll());
         return mv;
     }
 }

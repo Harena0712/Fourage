@@ -1,4 +1,4 @@
--- DROP DATABASE IF EXISTS fourage;
+DROP DATABASE IF EXISTS fourage;
 
 CREATE DATABASE fourage;
 
@@ -9,7 +9,7 @@ CREATE TABLE clients (
     nom         VARCHAR(255) NOT NULL,
     prenom      VARCHAR(255) NOT NULL,
     email       VARCHAR(255) NOT NULL,
-    addresse    VARCHAR(255) NOT NULL
+    adresse    VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE regions (

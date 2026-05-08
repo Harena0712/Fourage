@@ -10,8 +10,8 @@ public class Commune {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "labelle")
-    private String labelle;
+    @Column(name = "libelle")
+    private String libelle;
 
     @Column(name = "idDistrict")
     private int idDistrict;
@@ -22,14 +22,14 @@ public class Commune {
     public Commune() {
     }
 
-    public Commune(int id, String labelle, int idDistrict) {
+    public Commune(int id, String libelle, int idDistrict) {
         this.id = id;
-        this.labelle = labelle;
+        this.libelle = libelle;
         this.idDistrict = idDistrict;
     }
 
-    public Commune(String labelle, int idDistrict) {
-        this.labelle = labelle;
+    public Commune(String libelle, int idDistrict) {
+        this.libelle = libelle;
         this.idDistrict = idDistrict;
     }
 
@@ -41,12 +41,12 @@ public class Commune {
         this.id = id;
     }
 
-    public String getLabelle() {
-        return labelle;
+    public String getLibelle() {
+        return libelle;
     }
 
-    public void setLabelle(String labelle) {
-        this.labelle = labelle;
+    public void setLibelle(String libelle) {
+        this.libelle = libelle;
     }
 
     public List<Demande> getIdDemandes() {
