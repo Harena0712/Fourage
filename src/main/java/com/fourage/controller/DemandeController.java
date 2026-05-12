@@ -65,7 +65,7 @@ public class DemandeController {
 
         StatutDemande statutDemande = new StatutDemande();
         statutDemande.setIdDemande(demande.getId());
-        statutDemande.setIdStatut(demandeRecu.getId());
+        statutDemande.setIdStatut(demandeRecu.getId()); // Statut "Demande reçue"
         statutDemande.setDaty(LocalDateTime.parse(date));
         
         statutDemandeService.save(statutDemande);

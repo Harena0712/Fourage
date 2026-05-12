@@ -146,7 +146,7 @@
 
         .form-row {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1fr;
             gap: 20px;
         }
 
@@ -206,6 +206,9 @@
     </style>
 </head>
 <body>
+    <a href="${pageContext.request.contextPath}/demande/lister">Liste demandes</a>
+    <a href="${pageContext.request.contextPath}/devis/formulaire">Devis</a>
+    <a href="${pageContext.request.contextPath}/devis/lister">Liste devis</a>
     <div class="form-container">
         <div class="form-header">
             <h1><i class="bi bi-droplet-fill"></i> Demande de Forage</h1>
@@ -232,6 +235,12 @@
             %>
 
             <form action="${pageContext.request.contextPath}/demande/ajouter" method="post" novalidate>
+
+                <div class="form-info">
+                    <i class="bi bi-info-circle-fill"></i> 
+                    Les champs marqués avec <span style="color: #dc2626;">*</span> sont obligatoires
+                </div>
+                
                 <!-- Section Informations Personnelles -->
                 <div class="form-section">
                     <div class="section-title">
@@ -279,11 +288,6 @@
                         <label for="date">Date <span style="color: #dc2626;">*</span></label>
                         <input type="datetime-local" id="date" name="date" class="form-control" required>
                     </div>
-                </div>
-
-                <div class="form-info">
-                    <i class="bi bi-info-circle-fill"></i> 
-                    Les champs marqués avec <span style="color: #dc2626;">*</span> sont obligatoires
                 </div>
 
                 <button type="submit" class="btn-submit">

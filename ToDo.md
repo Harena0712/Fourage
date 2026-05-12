@@ -82,6 +82,15 @@ mon-projet/
   - `idStatut` (INT)
   - `daty` (DATETIME)
 
+- [x] Créer la table `devis` avec les champs suivants :
+  - `id` (INT, PRIMARY KEY, AUTO_INCREMENT)
+  - `idDemande` (INT)
+  - `qnt` (INT)
+  - `unite` (VARCHAR(255)) (ex: litre, kilo,...)
+  - `PU` (DECIMAL)
+  - `description` (VARCHAR(255))
+  - `daty` (DATETIME)
+  - `total` (DECIMAL)
 
 ## Modeles, Repository, Service, Controller
 ### Les modeles
@@ -130,6 +139,16 @@ mon-projet/
   - `idStatut` (int)
   - `daty` (LocalDateTime)
 
+- [x] Créer la classe `Devis` avec les champs suivants :
+  - `id` (int)
+  - `idDemande` (int)
+  - `qnt` (int)
+  - `unite` (String)
+  - `PU` (double)
+  - `description` (String)
+  - `daty` (LocalDateTime)
+  - `total` (double)
+
 ### Les repositories
 - [x] Créer l'interface `ClientRepository` avec le méthode suivant :
   - `void save(Client client)`
@@ -155,65 +174,83 @@ mon-projet/
 - [x] Créer l'interface `StatutDemandeRepository` avec le méthode suivant :
   - `void save(StatutDemande statutDemande)`
 
+- [x] Créer l'interface `DevisRepository` avec le méthode suivant :
+  - `void save(Devis devis)`
+  - `List<Devis> findAll()`
+  - `List<Devis> findById(int id)`
+  - `void delete(int id)`
+
 
 ### Les services
 - [x] Créer la classe `ClientService` avec le méthode suivant :
-  - `void saveClient(Client client)`
+  - `void save(Client client)`
 
 - [x] Créer la classe `RegionService` avec le méthode suivant :
-  - `void saveRegion(Region region)`
+  - `void save(Region region)`
 
 - [x] Créer la classe `DistrictService` avec le méthode suivant :
-  - `void saveDistrict(District district)`
+  - `void save(District district)`
 
 - [x] Créer la classe `CommuneService` avec le méthode suivant :
-  - `void saveCommune(Commune commune)`
+  - `void save(Commune commune)`
 
 - [x] Créer la classe `DemandeService` avec le méthode suivant :
-  - `void saveDemande(Demande demande)`
-  - `List<Demande> getAllDemandes()`
-  - `List<Demande> getDemandeById(int id)`
-  - `void deleteDemande(int id)`
+  - `void save(Demande demande)`
+  - `List<Demande> getAll()`
+  - `List<Demande> getById(int id)`
+  - `void delete(int id)`
 
 - [x] Créer la classe `StatutService` avec le méthode suivant :
-  - `void saveStatut(Statut statut)`
+  - `void save(Statut statut)`
 
 - [x] Créer la classe `StatutDemandeService` avec le méthode suivant :
-  - `void saveStatutDemande(StatutDemande statutDemande)`
+  - `void save(StatutDemande statutDemande)`
+
+- [x] Créer la classe `DevisService` avec le méthode suivant :
+  - `void save(Devis devis)`
+  - `List<Devis> getAll()`
+  - `List<Devis> getById(int id)`
+  - `void delete(int id)`
 
 ### Les controllers
 - [ ] Créer la classe `ClientController` avec le méthode suivant :
-  - url `/client/formulaire` pour la fonction `formulaire()`
-  - url `/client/ajouter` pour la fonction `ajouter()`
+  - [ ] url `/client/formulaire` pour la fonction `formulaire()`
+  - [ ] url `/client/ajouter` pour la fonction `ajouter()`
   
 - [ ] Créer la classe `RegionController` avec le méthode suivant :
-  - url `/region/formulaire` pour la fonction `formulaire()`
-  - url `/region/ajouter` pour la fonction `ajouter()`
+  - [ ] url `/region/formulaire` pour la fonction `formulaire()`
+  - [ ] url `/region/ajouter` pour la fonction `ajouter()`
 
 - [ ] Créer la classe `DistrictController` avec le méthode suivant :
-  - url `/district/formulaire` pour la fonction `formulaire()`
-  - url `/district/ajouter` pour la fonction `ajouter()`
+  - [ ] url `/district/formulaire` pour la fonction `formulaire()`
+  - [ ] url `/district/ajouter` pour la fonction `ajouter()`
 
 - [ ] Créer la classe `CommuneController` avec le méthode suivant :
-  - url `/commune/formulaire` pour la fonction `formulaire()`
-  - url `/commune/ajouter` pour la fonction `ajouter()`
+  - [ ] url `/commune/formulaire` pour la fonction `formulaire()`
+  - [ ] url `/commune/ajouter` pour la fonction `ajouter()`
 
 - [ ] Créer la classe `DemandeController` avec le méthode suivant :
-  - url `/demande/formulaire` pour la fonction `formulaire()`
-  - url `/demande/ajouter` pour la fonction `ajouter()`
-  - url `/demande/lister` pour la fonction `lister()`
-  - url `/demande/supprimer/<id>` pour la fonction `supprimer()`
+  - [x] url `/demande/formulaire` pour la fonction `formulaire()`
+  - [x] url `/demande/ajouter` pour la fonction `ajouter()`
+  - [ ] url `/demande/lister` pour la fonction `lister()`
+  - [ ] url `/demande/supprimer/<id>` pour la fonction `supprimer()`
 
 - [ ] Créer la classe `StatutController` avec le méthode suivant :
-  - url `/statut/formulaire` pour la fonction `formulaire()`
-  - url `/statut/ajouter` pour la fonction `ajouter()`
+  - [ ] url `/statut/formulaire` pour la fonction `formulaire()`
+  - [ ] url `/statut/ajouter` pour la fonction `ajouter()`
 
 - [ ] Créer la classe `StatutDemandeController` avec le méthode suivant :
-  - url `/statut-demande/formulaire` pour la fonction `formulaire()`
-  - url `/statut-demande/ajouter` pour la fonction `ajouter()`
+  - [ ] url `/statut-demande/formulaire` pour la fonction `formulai()`
+  - [ ] url `/statut-demande/ajouter` pour la fonction `ajouter()`
+
+- [ ] Créer la classe `DevisController` avec le méthode suivant :
+  - [ ] url `/devis/formulaire` pour la fonction `formulaire()`
+  - [ ] url `/devis/ajouter` pour la fonction `ajouter()`
+  - [ ] url `/devis/lister` pour la fonction `lister()`
+  - [ ] url `/devis/supprimer/<id>` pour la fonction `supprimer()`
 
 ## Les vues
-- [ ] Créer la vue `demande/formulaire.jsp` pour le formulaire de création d'une demande
+- [x] Créer la vue `demande/formulaire.jsp` pour le formulaire de création d'une demande
 - [ ] Créer la vue `demande/lister.jsp` pour la liste des demandes
 - [ ] Créer la vue `client/formulaire.jsp` pour le formulaire de création d'un client
 - [ ] Créer la vue `region/formulaire.jsp` pour le formulaire de création d'une région
@@ -221,6 +258,16 @@ mon-projet/
 - [ ] Créer la vue `commune/formulaire.jsp` pour le formulaire de création d'une commune
 - [ ] Créer la vue `statut/formulaire.jsp` pour le formulaire de création d'un statut
 - [ ] Créer la vue `statutDemande/formulaire.jsp` pour le formulaire de création d'un statut de demande
+- [ ] Créer la vue `devis/formulaire.jsp` pour le formulaire de création d'une devis
+- [ ] Créer la vue `devis/lister.jsp` pour la liste des devis
 
 
 
+Creation devis
+
+details (date,...)
+    => ligne par ligne [lavaka, tuillon, etc]   avec statut  
+    => qnt, unité, PU, description, Total A saisir
+
+interface d'entrer
+lister les devis entrés

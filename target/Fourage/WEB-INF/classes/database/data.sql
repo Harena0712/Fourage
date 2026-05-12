@@ -34,7 +34,7 @@ INSERT INTO clients (nom, prenom, email, adresse) VALUES
 
 INSERT INTO statuts (libelle) VALUES
 ('Demande reçue'),
-('En attente'),
+('Devis reçus'),
 ('En cours'),
 ('Terminé'),
 ('Annulé');

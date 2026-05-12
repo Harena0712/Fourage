@@ -25,6 +25,10 @@ public class DemandeService {
         return repo.getById(id);
     }
 
+    public void update(Demande d) {
+        repo.update(d);
+    }
+
     public void delete(int id) {
         repo.delete(id);
     }

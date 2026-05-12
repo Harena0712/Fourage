@@ -54,3 +54,15 @@ CREATE TABLE statutDemandes (
     FOREIGN KEY (idDemande) REFERENCES demandes(id),
     FOREIGN KEY (idStatut) REFERENCES statuts(id)
 );
+
+CREATE TABLE devis (
+    id              INT AUTO_INCREMENT PRIMARY KEY,
+    idDemande       INT NOT NULL,
+    description     VARCHAR(255) NOT NULL,
+    qnt             INT NOT NULL,
+    unite           VARCHAR(255) NOT NULL,
+    PU              DECIMAL(10.2),
+    total           DECIMAL(10.2),
+    daty            DATETIME NOT NULL,
+    FOREIGN KEY (idDemande) REFERENCES demandes(id)
+);
