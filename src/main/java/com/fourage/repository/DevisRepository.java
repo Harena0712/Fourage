@@ -33,5 +33,4 @@ public class DevisRepository {
     public void delete(int id) {
         jpaDAO.delete(Devis.class, id);
     }
-
 }

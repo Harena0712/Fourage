@@ -1,7 +1,9 @@
 package com.fourage.controller;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.fourage.model.*;
 import com.fourage.service.*;
+import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 public class DevisController {
@@ -19,53 +22,125 @@ public class DevisController {
     @Autowired
     private DevisService devisService;
     @Autowired
-    private StatutDemandeService statutDemandeService;
+    private StatutService statutService;
+    @Autowired
+    private ClientService clientService;
+    @Autowired
+    private TypeService typeService;
+    @Autowired
+    private DevisDetailService devisDetailService;
 
     @GetMapping("/devis/formulaire")
     public ModelAndView formulaire() {
         List<Demande> demandes = demandeService.getAll();
+        List<Type> types = typeService.getAll();
         ModelAndView mv = new ModelAndView("Devis/formulaire");
         mv.addObject("demandes", demandes);
+        mv.addObject("types", types);
         return mv;
     }
 
-    @PostMapping("/devis/ajouter")
-    public ModelAndView ajouter(@RequestParam("idDemande") int idDemande,
-                                @RequestParam("desc") String desc,
-                                @RequestParam("qnt") int qnt,
-                                @RequestParam("unite") String unite,
-                                @RequestParam("PU") double PU,
-                                @RequestParam("total") double total,
-                                @RequestParam("daty") String daty) {
+    @GetMapping("/devis/lister")
+    public ModelAndView lister() {
+        List<Devis> devis = devisService.getAll();
+        List<Client> clients = clientService.getAll();
+        List<Demande> demandes = demandeService.getAll();
+        List<Type> types = typeService.getAll();
+        List<DevisDetail> devisDetails = devisDetailService.getAll();
+        ModelAndView mv = new ModelAndView("Devis/liste");
+        mv.addObject("devis", devis);
+        mv.addObject("clients", clients);
+        mv.addObject("demandes", demandes);
+        mv.addObject("types", types);
+        mv.addObject("devisDetails", devisDetails);
+        return mv;
+    }
+    
+    @PostMapping("/devis/infoDemande")
+    @ResponseBody
+    public Map<String, Object> infoDemande(@RequestParam("idDemande") int idDemande) {
 
-        try {
-            Devis devis = new Devis();
-            devis.setIdDemande(idDemande);
-            devis.setDescription(desc);
-            devis.setQnt(qnt);
-            devis.setUnite(unite);
-            devis.setPU(PU);
-            devis.setTotal(total);
-            devis.setDaty(LocalDateTime.parse(daty));
+        Demande demande = demandeService.getById(idDemande);
+        Client client = clientService.getById(demande.getIdClient());
 
-            devisService.save(devis);
+        Map<String, Object> response = new HashMap<>();
 
-            StatutDemande statutDemande = new StatutDemande();
-            statutDemande.setIdDemande(idDemande);
-            statutDemande.setIdStatut(2); // Statut "Devis reçus"
-            statutDemande.setDaty(LocalDateTime.now());
-
-            statutDemandeService.save(statutDemande);
-
-            ModelAndView mv = new ModelAndView("/Devis/formulaire");
-            mv.addObject("demandes", demandeService.getAll());
-            mv.addObject("succes", "Devis ajouté avec succès");
-            return mv;
-        } catch (Exception e) {
-            ModelAndView mv = new ModelAndView("/Devis/formulaire");
-            mv.addObject("demandes", demandeService.getAll());
-            mv.addObject("erreur", "Erreur lors de l'ajout du devis: " + e.getMessage());
-            return mv;
+        if(demande != null) {
+            response.put("success", true);
+            response.put("lieu", demande.getLieu());
+            response.put("date", demande.getDaty());
+            response.put("reference", demande.getReference());
+            response.put("client", client.getNom());
         }
+
+        return response;
+    }
+
+    @PostMapping("/devis/ajouter")
+    public ModelAndView ajouter(
+            @RequestParam("idDemande") int idDemande,
+            @RequestParam("desc") String desc,
+            @RequestParam("idType") int idType,
+            @RequestParam("daty") String daty,
+            HttpServletRequest request) {
+
+        LocalDateTime dateDevis = LocalDateTime.parse(daty);
+
+        Devis devis = new Devis(idDemande, idType, desc, dateDevis);
+        devisService.save(devis);
+
+        Statut demandeRecu = new Statut();
+        if (idType == 1) {
+            demandeRecu = statutService.getById(2);
+        }
+        if (idType == 2) {
+            demandeRecu = statutService.getById(3);
+        }
+
+        StatutDemande statutDemande = new StatutDemande();
+        statutDemande.setIdDemande(idDemande);
+        statutDemande.setIdStatut(demandeRecu.getId()); 
+        statutDemande.setDaty(dateDevis);
+
+        String[] libelles = request.getParameterValues("libelle[]");
+        String[] qnts = request.getParameterValues("qnt[]");
+        String[] PUs = request.getParameterValues("PU[]");
+
+        if (libelles != null) {
+            for (int i = 0; i < libelles.length; i++) {
+                String libelle = libelles[i];
+                int qnt = 0;
+                double PU = 0.0;
+
+                try {
+                    if (qnts != null && i < qnts.length && qnts[i] != null && !qnts[i].isEmpty()) {
+                        qnt = Integer.parseInt(qnts[i]);
+                    }
+                } catch (NumberFormatException e) {
+                    qnt = 0;
+                }
+
+                try {
+                    if (PUs != null && i < PUs.length && PUs[i] != null && !PUs[i].isEmpty()) {
+                        PU = Double.parseDouble(PUs[i]);
+                    }
+                } catch (NumberFormatException e) {
+                    PU = 0.0;
+                }
+
+                if (libelle != null && !libelle.trim().isEmpty()) {
+                    DevisDetail detail = new DevisDetail(devis.getId(), libelle.trim(), qnt, PU);
+                    devisDetailService.save(detail);
+                }
+            }
+        }
+
+        List<Demande> demandes = demandeService.getAll();
+        List<Type> types = typeService.getAll();
+        ModelAndView mv = new ModelAndView("Devis/formulaire");
+        mv.addObject("demandes", demandes);
+        mv.addObject("types", types);
+        mv.addObject("succes", "Devis ajouté avec succès");
+        return mv;
     }
 }

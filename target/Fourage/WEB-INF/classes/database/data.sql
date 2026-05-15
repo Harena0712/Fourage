@@ -34,7 +34,12 @@ INSERT INTO clients (nom, prenom, email, adresse) VALUES
 
 INSERT INTO statuts (libelle) VALUES
 ('Demande reçue'),
-('Devis reçus'),
+('Devis etude crée'),
+('Devis forage crée'),
 ('En cours'),
 ('Terminé'),
 ('Annulé');
+
+INSERT INTO types (libelle) VALUES
+('Etude'),
+('Forage');

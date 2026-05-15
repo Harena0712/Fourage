@@ -2,7 +2,7 @@
 
 # Commande de lancement du projet
 ```
-mvn clean package
+mvn package
 cp target/*.war /home/harena/Documents/ITU/S4/tomcat10/webapps
 ./startup.sh
 http://localhost:8080/nomDuProjet
@@ -82,16 +82,23 @@ mon-projet/
   - `idStatut` (INT)
   - `daty` (DATETIME)
 
+- [x] Créer la table `types` avec les champs suivants :
+  - `id` (INT, PRIMARY KEY, AUTO_INCREMENT)
+  - `libelle` (VARCHAR(255))
+
 - [x] Créer la table `devis` avec les champs suivants :
   - `id` (INT, PRIMARY KEY, AUTO_INCREMENT)
   - `idDemande` (INT)
-  - `qnt` (INT)
-  - `unite` (VARCHAR(255)) (ex: litre, kilo,...)
-  - `PU` (DECIMAL)
+  - `idType` (INT)
   - `description` (VARCHAR(255))
   - `daty` (DATETIME)
-  - `total` (DECIMAL)
 
+- [x] Créer la table `devisDetails` avec les champs suivants :
+  - `id` (INT, PRIMARY KEY, AUTO_INCREMENT)
+  - `idDevis` (INT)
+  - `libelle` (VARCHAR(255))
+  - `qnt` (INT)
+  - `PU` (DECIMAL)
 ## Modeles, Repository, Service, Controller
 ### Les modeles
 - [x] Créer la classe `Client` avec les champs suivants :
@@ -258,7 +265,7 @@ mon-projet/
 - [ ] Créer la vue `commune/formulaire.jsp` pour le formulaire de création d'une commune
 - [ ] Créer la vue `statut/formulaire.jsp` pour le formulaire de création d'un statut
 - [ ] Créer la vue `statutDemande/formulaire.jsp` pour le formulaire de création d'un statut de demande
-- [ ] Créer la vue `devis/formulaire.jsp` pour le formulaire de création d'une devis
+- [x] Créer la vue `devis/formulaire.jsp` pour le formulaire de création d'une devis
 - [ ] Créer la vue `devis/lister.jsp` pour la liste des devis
 
 
@@ -271,3 +278,48 @@ details (date,...)
 
 interface d'entrer
 lister les devis entrés
+
+Table
+
+types:
+    etude, 
+    forage
+
+Devis :
+    id, 
+    idType, 
+    libelle, 
+    date, 
+    description
+  
+devisDetails:
+    idDevis,
+    libelle,
+    qnt,
+    montant (PU)
+
+
+
+Formulaire devis
+  - Ref-DEmande (Afficher automatiquement apres avoir choisi le Ref-Demande)
+      Client
+      date,
+      lieu
+
+  - Type
+        action 
+          bouton ajouter une ligne pour avoir plusieurs devisDetails
+          bouton supprimer une ligne
+  - DevisDetail (fieldSet)
+    - libelle
+    - qnt
+    - montant (PU)
+
+  - Date
+
+
+
+Insertion
+devis, demandeStatut, devisDetails
+
+

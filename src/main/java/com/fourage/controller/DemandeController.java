@@ -1,6 +1,7 @@
 package com.fourage.controller;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,6 +74,28 @@ public class DemandeController {
         ModelAndView mv = new ModelAndView("/Demandes/formulaire");
         mv.addObject("succes", "Demande ajoutée avec succès");
         mv.addObject("communes", communeService.getAll());
+        return mv;
+    }
+
+    @GetMapping("/demande/lister")
+    public ModelAndView lister() {
+        List<Demande> demandes = demandeService.getAll();
+        ModelAndView mv = new ModelAndView("/Demandes/liste");
+
+        List<Client> clients = new ArrayList<>();
+        for(Demande d : demandes) {
+            Client c = clientService.getById(d.getIdClient());
+            clients.add(c);
+        }
+
+        List<Commune> communes = new ArrayList<>();
+        for(Demande d : demandes) {
+            Commune c = communeService.getById(d.getIdCommune());
+            communes.add(c);
+        }
+        mv.addObject("demandes", demandes);
+        mv.addObject("clients", clients);
+        mv.addObject("communes", communes);
         return mv;
     }
 }

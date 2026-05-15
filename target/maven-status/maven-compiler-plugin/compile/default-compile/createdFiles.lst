@@ -1,7 +1,9 @@
 com/fourage/service/RegionService.class
 com/fourage/repository/DistrictRepository.class
 com/fourage/repository/CommuneRepository.class
+com/fourage/service/DevisDetailService.class
 com/fourage/util/ReferenceGenerator.class
+com/fourage/model/Type.class
 com/fourage/config/AppInitializer.class
 com/fourage/service/StatutService.class
 com/fourage/controller/DevisController.class
@@ -13,7 +15,9 @@ com/fourage/config/DatabaseConfig.class
 com/fourage/repository/DevisRepository.class
 com/fourage/service/DevisService.class
 com/fourage/model/Statut.class
+com/fourage/service/TypeService.class
 com/fourage/repository/StatutRepository.class
+com/fourage/repository/DevisDetailRepository.class
 com/fourage/service/DistrictSercive.class
 com/fourage/service/ClientService.class
 com/fourage/model/Client.class
@@ -23,9 +27,11 @@ com/fourage/service/CommuneService.class
 com/fourage/service/StatutDemandeService.class
 com/fourage/controller/DemandeController.class
 com/fourage/repository/StatutDemandeRepository.class
+com/fourage/model/DevisDetail.class
 com/fourage/config/Config.class
 com/fourage/repository/RegionRepository.class
 com/fourage/repository/DemandeRepository.class
 com/fourage/model/Devis.class
+com/fourage/repository/TypeRepository.class
 com/fourage/repository/ClientRepository.class
 com/fourage/model/StatutDemande.class

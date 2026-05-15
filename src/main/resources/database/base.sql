@@ -55,14 +55,28 @@ CREATE TABLE statutDemandes (
     FOREIGN KEY (idStatut) REFERENCES statuts(id)
 );
 
+CREATE TABLE types (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    libelle VARCHAR(255)
+);
+
 CREATE TABLE devis (
-    id              INT AUTO_INCREMENT PRIMARY KEY,
-    idDemande       INT NOT NULL,
-    description     VARCHAR(255) NOT NULL,
-    qnt             INT NOT NULL,
-    unite           VARCHAR(255) NOT NULL,
-    PU              DECIMAL(10.2),
-    total           DECIMAL(10.2),
-    daty            DATETIME NOT NULL,
-    FOREIGN KEY (idDemande) REFERENCES demandes(id)
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    idDemande INT,
+    idType INT,
+    description VARCHAR(255),
+    daty DATETIME,
+
+    FOREIGN KEY (idDemande) REFERENCES demandes(id),
+    FOREIGN KEY (idType) REFERENCES types(id)
+);
+
+CREATE TABLE devisDetails (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    idDevis INT,
+    libelle VARCHAR(255),
+    qnt INT,
+    PU DECIMAL(10,2),
+
+    FOREIGN KEY (idDevis) REFERENCES devis(id)
 );

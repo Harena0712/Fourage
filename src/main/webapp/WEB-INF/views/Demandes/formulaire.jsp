@@ -203,13 +203,68 @@
             color: #2563eb;
             margin-right: 10px;
         }
+            .sidebar {
+                position: fixed;
+                left: 24px;
+                top: 40px;
+                width: 260px;
+                height: calc(100vh - 80px);
+                background: linear-gradient(180deg,#0b1226 0%,#12263f 100%);
+                color: #fff;
+                border-radius: 12px;
+                box-shadow: 0 20px 50px rgba(2,6,23,0.6);
+                padding: 16px;
+                z-index: 1050;
+                overflow: auto;
+            }
+            .sidebar .brand { display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; }
+            .sidebar .brand a { color:#fff; text-decoration:none; display:flex; align-items:center; gap:10px; }
+            .sidebar .brand .brand-logo { font-size:22px; background:rgba(255,255,255,0.06); padding:8px; border-radius:8px; }
+            .sidebar .brand .brand-text { font-weight:700; font-size:18px; }
+            .sidebar .nav-link { display:flex; align-items:center; gap:10px; color:rgba(255,255,255,0.92); padding:10px 12px; border-radius:8px; margin-bottom:8px; text-decoration:none; }
+            .sidebar .nav-link:hover { background:rgba(255,255,255,0.04); color:#fff; }
+            .sidebar .nav-link.active { background:rgba(255,255,255,0.06); box-shadow: inset 4px 0 0 0 rgba(255,255,255,0.14); font-weight:700; }
+            .sidebar .sidebar-footer { margin-top:16px; font-size:12px; opacity:0.8; }
+            .sidebar .sidebar-toggle { background:transparent; border:none; color:#fff; font-size:20px; }
+            .sidebar nav p { margin:12px 0 8px; font-size:12px; color:rgba(255,255,255,0.6); font-weight:700; }
+
+            .main-with-sidebar { margin-left: 320px; padding-top: 20px; }
+            .overlay { display:none; }
+            .overlay.show { display:block; position:fixed; inset:0; background:rgba(0,0,0,0.45); z-index:1040; }
+
+            @media (max-width: 900px) {
+                .sidebar { transform: translateX(-110%); transition: transform .25s ease-in-out; left: 0; top: 0; height: 100vh; border-radius: 0; }
+                .sidebar.open { transform: translateX(0); }
+                .main-with-sidebar { margin-left: 0; }
+                .sidebar .sidebar-toggle { display:inline-block; }
+            }
     </style>
 </head>
 <body>
-    <a href="${pageContext.request.contextPath}/demande/lister">Liste demandes</a>
-    <a href="${pageContext.request.contextPath}/devis/formulaire">Devis</a>
-    <a href="${pageContext.request.contextPath}/devis/lister">Liste devis</a>
-    <div class="form-container">
+    <div class="page">
+        <aside class="sidebar" role="navigation">
+            <div class="brand">
+                <a href="${pageContext.request.contextPath}/">
+                    <span class="brand-logo"><i class="bi bi-receipt"></i></span>
+                    <span class="brand-text">Forage</span>
+                </a>
+                <button class="sidebar-toggle" aria-label="Ouvrir le menu"><i class="bi bi-list"></i></button>
+            </div>
+
+            <nav class="nav flex-column">
+                <p>Formulaire</p>
+                <a class="nav-link" href="${pageContext.request.contextPath}/demande/formulaire"><i class="bi bi-file-earmark-text"></i> Demande</a>
+                <a class="nav-link" href="${pageContext.request.contextPath}/devis/formulaire"><i class="bi bi-file-earmark-text"></i> Devis</a>
+                <p>Liste</p>
+                <a class="nav-link" href="${pageContext.request.contextPath}/demande/lister"><i class="bi bi-card-list"></i> Liste demandes</a>
+                <a class="nav-link" href="${pageContext.request.contextPath}/devis/lister"><i class="bi bi-receipt"></i> Liste devis</a>
+            </nav>
+
+            <div class="sidebar-footer">v1.0 • Forage</div>
+        </aside>
+
+        <main class="main-with-sidebar">
+            <div class="form-container">
         <div class="form-header">
             <h1><i class="bi bi-droplet-fill"></i> Demande de Forage</h1>
             <p>Soumettez votre demande de forage en quelques étapes simples</p>
@@ -286,7 +341,7 @@
 
                     <div class="form-group">
                         <label for="date">Date <span style="color: #dc2626;">*</span></label>
-                        <input type="datetime-local" id="date" name="date" class="form-control" required>
+                        <input type="datetime-local"  id="date" name="date" class="form-control" required>
                     </div>
                 </div>
 
@@ -296,6 +351,30 @@
             </form>
         </div>
     </div>
+
+    <script>
+        (function(){
+            var sidebar = document.querySelector('.sidebar');
+            var toggle = document.querySelector('.sidebar-toggle');
+            var overlay = document.createElement('div'); overlay.className = 'overlay';
+            document.body.appendChild(overlay);
+
+            function closeSidebar(){ sidebar.classList.remove('open'); overlay.classList.remove('show'); }
+            function openSidebar(){ sidebar.classList.add('open'); overlay.classList.add('show'); }
+
+            if(toggle){ toggle.addEventListener('click', function(){ sidebar.classList.toggle('open'); overlay.classList.toggle('show'); }); }
+            overlay.addEventListener('click', closeSidebar);
+
+            var links = document.querySelectorAll('.sidebar .nav-link');
+            var path = window.location.pathname || '';
+            var ctx = '${pageContext.request.contextPath}';
+            links.forEach(function(a){
+                var href = a.getAttribute('href') || '';
+                var rel = href.replace(ctx, '');
+                if(rel && path.indexOf(rel) !== -1){ a.classList.add('active'); }
+            });
+        })();
+    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
