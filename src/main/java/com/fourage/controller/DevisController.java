@@ -55,7 +55,7 @@ public class DevisController {
         mv.addObject("devisDetails", devisDetails);
         return mv;
     }
-    
+
     @PostMapping("/devis/infoDemande")
     @ResponseBody
     public Map<String, Object> infoDemande(@RequestParam("idDemande") int idDemande) {
