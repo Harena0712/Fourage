@@ -22,6 +22,7 @@ com/fourage/service/DistrictSercive.class
 com/fourage/service/ClientService.class
 com/fourage/model/Client.class
 com/fourage/service/DemandeService.class
+com/fourage/cache/StatutCache.class
 com/fourage/repository/JpaDAO.class
 com/fourage/service/CommuneService.class
 com/fourage/service/StatutDemandeService.class

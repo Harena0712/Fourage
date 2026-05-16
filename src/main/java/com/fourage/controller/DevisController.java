@@ -12,6 +12,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.fourage.model.*;
 import com.fourage.service.*;
+import com.fourage.cache.*;
+
 import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
@@ -22,13 +24,15 @@ public class DevisController {
     @Autowired
     private DevisService devisService;
     @Autowired
-    private StatutService statutService;
+    private StatutDemandeService statutDemandeService;
     @Autowired
     private ClientService clientService;
     @Autowired
     private TypeService typeService;
     @Autowired
     private DevisDetailService devisDetailService;
+    @Autowired
+    private StatutCache statutCache;
 
     @GetMapping("/devis/formulaire")
     public ModelAndView formulaire() {
@@ -91,16 +95,18 @@ public class DevisController {
 
         Statut demandeRecu = new Statut();
         if (idType == 1) {
-            demandeRecu = statutService.getById(2);
+            demandeRecu = statutCache.getByStatut("Devis etude crée");
         }
         if (idType == 2) {
-            demandeRecu = statutService.getById(3);
+            demandeRecu = statutCache.getByStatut("Devis forage crée");
         }
 
         StatutDemande statutDemande = new StatutDemande();
         statutDemande.setIdDemande(idDemande);
         statutDemande.setIdStatut(demandeRecu.getId()); 
         statutDemande.setDaty(dateDevis);
+
+        statutDemandeService.save(statutDemande);
 
         String[] libelles = request.getParameterValues("libelle[]");
         String[] qnts = request.getParameterValues("qnt[]");
