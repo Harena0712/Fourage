@@ -6,7 +6,7 @@ import com.fourage.repository.TypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.*;
 
 @Service
 public class TypeService {
@@ -32,5 +32,12 @@ public class TypeService {
 
     public void delete(int id) {
         repo.delete(id);
+    }
+
+    public Map<Integer, String> getTypeMap() {
+        Map<Integer, String> map = new HashMap<>();
+        map.put(1, "DEC");
+        map.put(2, "DFC");
+        return map;
     }
 }

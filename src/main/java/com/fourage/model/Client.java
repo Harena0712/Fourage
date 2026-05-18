@@ -22,10 +22,6 @@ public class Client {
     @Column(name = "adresse")
     private String adresse;
 
-    @ManyToOne
-    @JoinColumn(name = "idClient")
-    private Demande demande;
-
     public Client() {
     }
 
@@ -83,13 +79,5 @@ public class Client {
 
     public void setAdresse(String adresse) {
         this.adresse = adresse;
-    }
-
-    public Demande getDemande() {
-        return demande;
-    }
-
-    public void setDemande(Demande demande) {
-        this.demande = demande;
     }
 }

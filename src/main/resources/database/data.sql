@@ -32,13 +32,13 @@ INSERT INTO clients (nom, prenom, email, adresse) VALUES
 ('Rakotondrazaka', 'Hery', 'hery.rakoto@gmail.com', 'Mahajanga Centre, Boeny'),
 ('Ravelo', 'Clara', 'clara.ravelo@hotmail.com', 'Toamasina Ville, Atsinanana');
 
-INSERT INTO statuts (libelle) VALUES
-('Demande reçue'),
-('Devis etude crée'),
-('Devis forage crée'),
-('En cours'),
-('Terminé'),
-('Annulé');
+INSERT INTO statuts (libelle, sigle) VALUES
+('Demande reçue', 'DR'),
+('Devis etude crée', 'DEC'),
+('Devis forage crée', 'DFC'),
+('En cours', 'EC'),
+('Terminé', 'TE'),
+('Annulé', 'AN');
 
 INSERT INTO types (libelle) VALUES
 ('Etude'),

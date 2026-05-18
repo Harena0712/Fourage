@@ -43,7 +43,8 @@ CREATE TABLE demandes(
 
 CREATE TABLE statuts (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    libelle VARCHAR(255) NOT NULL
+    libelle VARCHAR(255) NOT NULL,
+    sigle VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE statutDemandes (

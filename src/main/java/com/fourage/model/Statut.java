@@ -15,6 +15,9 @@ public class Statut {
     @Column(name = "libelle")
     private String libelle;
 
+    @Column(name = "sigle")
+    private String sigle;
+
     @OneToMany(mappedBy = "idStatut")
     private List<StatutDemande> statutDemandes;
 
@@ -31,6 +34,13 @@ public class Statut {
     public void setLibelle(String libelle) {
         this.libelle = libelle;
     }
+
+    public String getSigle() {
+        return sigle;
+    }
+    public void setSigle(String sigle) {
+        this.sigle = sigle;
+    } 
 
     public List<StatutDemande> getStatutDemandes() {
         return statutDemandes;

@@ -22,6 +22,8 @@ public class DevisController {
     @Autowired
     private DemandeService demandeService;
     @Autowired
+    private StatutService statutService;
+    @Autowired
     private DevisService devisService;
     @Autowired
     private StatutDemandeService statutDemandeService;
@@ -33,6 +35,15 @@ public class DevisController {
     private DevisDetailService devisDetailService;
     @Autowired
     private StatutCache statutCache;
+
+    public Map<String, Integer> getStatutMap() {
+        Map<String, Integer> statutMap = new HashMap<>();
+        List<Statut> statuts = statutService.getAll();
+        for (Statut statut : statuts) {
+            statutMap.put(statut.getSigle(), statut.getId());
+        }
+        return statutMap;
+    }
 
     @GetMapping("/devis/formulaire")
     public ModelAndView formulaire() {
@@ -88,22 +99,36 @@ public class DevisController {
             @RequestParam("daty") String daty,
             HttpServletRequest request) {
 
+        Map<Integer, String> typeMap = typeService.getTypeMap();
+        Map<String, Integer> statutMap = getStatutMap();
+
+        String sigle = "";
+        int idStatut = 0;
+
+        for (Integer cle : typeMap.keySet()) {
+            if (cle == idType) {
+                sigle = typeMap.get(cle);
+            }
+        }
+
+        // for (String cle : statutMap.keySet()) {
+        //     if (cle.equals(sigle)) {
+        //         idStatut = statutMap.get(cle);
+        //     }
+        // }
+
+        if (sigle != null && !sigle.isEmpty()) {
+            idStatut = statutMap.get(sigle);
+        }
+
         LocalDateTime dateDevis = LocalDateTime.parse(daty);
 
         Devis devis = new Devis(idDemande, idType, desc, dateDevis);
         devisService.save(devis);
 
-        Statut demandeRecu = new Statut();
-        if (idType == 1) {
-            demandeRecu = statutCache.getByStatut("Devis etude crée");
-        }
-        if (idType == 2) {
-            demandeRecu = statutCache.getByStatut("Devis forage crée");
-        }
-
         StatutDemande statutDemande = new StatutDemande();
         statutDemande.setIdDemande(idDemande);
-        statutDemande.setIdStatut(demandeRecu.getId()); 
+        statutDemande.setIdStatut(idStatut);
         statutDemande.setDaty(dateDevis);
 
         statutDemandeService.save(statutDemande);
