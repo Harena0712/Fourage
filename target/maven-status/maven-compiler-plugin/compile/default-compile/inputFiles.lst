@@ -10,7 +10,6 @@
 /home/harena/Documents/ITU/S4/Web Dynabmique/Fourage/src/main/java/com/fourage/model/Type.java
 /home/harena/Documents/ITU/S4/Web Dynabmique/Fourage/src/main/java/com/fourage/repository/JpaDAO.java
 /home/harena/Documents/ITU/S4/Web Dynabmique/Fourage/src/main/java/com/fourage/config/AppInitializer.java
-/home/harena/Documents/ITU/S4/Web Dynabmique/Fourage/src/main/java/com/fourage/cache/StatutCache.java
 /home/harena/Documents/ITU/S4/Web Dynabmique/Fourage/src/main/java/com/fourage/repository/DevisRepository.java
 /home/harena/Documents/ITU/S4/Web Dynabmique/Fourage/src/main/java/com/fourage/model/Devis.java
 /home/harena/Documents/ITU/S4/Web Dynabmique/Fourage/src/main/java/com/fourage/config/DatabaseConfig.java

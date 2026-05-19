@@ -12,7 +12,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.fourage.model.*;
 import com.fourage.service.*;
-import com.fourage.cache.*;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -33,8 +32,6 @@ public class DevisController {
     private TypeService typeService;
     @Autowired
     private DevisDetailService devisDetailService;
-    @Autowired
-    private StatutCache statutCache;
 
     public Map<String, Integer> getStatutMap() {
         Map<String, Integer> statutMap = new HashMap<>();

@@ -40,7 +40,6 @@ public class Client {
         this.adresse = adresse;
     }
 
-
     public int getId() {
         return id;
     }
